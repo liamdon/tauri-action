@@ -8,6 +8,7 @@ interface Release {
   id: number;
   uploadUrl: string;
   htmlUrl: string;
+  releaseBody: string;
 }
 
 interface GitHubRelease {
@@ -15,6 +16,7 @@ interface GitHubRelease {
   upload_url: string;
   html_url: string;
   tag_name: string;
+  body?: string | null;
 }
 
 function allReleases(
@@ -32,7 +34,8 @@ export async function createRelease(
   body?: string,
   commitish?: string,
   draft = true,
-  prerelease = true
+  prerelease = true,
+  generateReleaseNotes = false
 ): Promise<Release> {
   if (process.env.GITHUB_TOKEN === undefined) {
     throw new Error('GITHUB_TOKEN is required');
@@ -98,6 +101,7 @@ export async function createRelease(
         draft,
         prerelease,
         target_commitish: commitish || context.sha,
+        generate_release_notes: generateReleaseNotes,
       });
 
       release = createdRelease.data;
@@ -117,5 +121,6 @@ export async function createRelease(
     id: release.id,
     uploadUrl: release.upload_url,
     htmlUrl: release.html_url,
+    releaseBody: release.body ?? '',
   };
 }

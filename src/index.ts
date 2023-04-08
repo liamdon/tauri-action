@@ -39,6 +39,7 @@ async function run(): Promise<void> {
     const draft = core.getBooleanInput('releaseDraft');
     const prerelease = core.getBooleanInput('prerelease');
     const commitish = core.getInput('releaseCommitish') || null;
+    const generateReleaseNotes = core.getBooleanInput('generateReleaseNotes');
 
     if (!releaseId) {
       if (Boolean(tagName) !== Boolean(releaseName)) {
@@ -114,12 +115,14 @@ async function run(): Promise<void> {
         body,
         commitish || undefined,
         draft,
-        prerelease
+        prerelease,
+        generateReleaseNotes
       );
       releaseId = releaseData.id;
       core.setOutput('releaseUploadUrl', releaseData.uploadUrl);
       core.setOutput('releaseId', releaseData.id.toString());
       core.setOutput('releaseHtmlUrl', releaseData.htmlUrl);
+      core.setOutput('releaseBody', releaseData.releaseBody);
     }
 
     if (releaseId) {

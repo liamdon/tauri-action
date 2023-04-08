@@ -88,6 +88,7 @@ jobs:
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
+          generateReleaseNotes: true
 ```
 
 ## Uploading the artifacts to a release
@@ -224,6 +225,7 @@ These inputs allow you to modify the GitHub release.
 | `releaseDraft`     |  false   | Whether the release to create is a draft or not                                            | bool   | false                 |
 | `prerelease`       |  false   | Whether the release to create is a prerelease or not                                       | bool   | false                 |
 | `releaseCommitish` |  false   | Any branch or commit SHA the Git tag is created from, unused if the Git tag already exists | string | SHA of current commit |
+| `generateReleaseNotes`       |  false   | Whether to automatically generate the name and body for this release. If `releaseName` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `releaseBody` is specified, the body will be pre-pended to the automatically generated notes. | bool   | false                 |
 
 ## Outputs
 
@@ -233,6 +235,7 @@ These inputs allow you to modify the GitHub release.
 | `releaseHtmlUrl`   | The URL users can navigate to in order to view the created release |
 | `releaseUploadUrl` | The URL for uploading assets to the created release                |
 | `artifactPaths`    | The paths of the generated artifacts                               |
+| `releaseBody`      | The body of the created release, including automatically-generated release notes, if applicable  |
 
 # Caveats
 
