@@ -20,6 +20,8 @@ inputs:
     default: false
   releaseCommitish:
     description: 'Any branch or commit SHA the Git tag is created from, unused if the Git tag already exists. Default: SHA of current commit'
+  generateReleaseNotes:
+    description: Whether to automatically generate the name and body for this release. If `releaseName` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `releaseBody` is specified, the body will be pre-pended to the automatically generated notes.
   projectPath:
     description: 'path to the root of the project that will be built'
     default: '.'
